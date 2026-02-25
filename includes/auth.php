@@ -29,7 +29,8 @@ function is_staff()
 function require_login()
 {
     if (!is_logged_in()) {
-        header("Location: /login.php");
+        $base_url = (basename(dirname($_SERVER['SCRIPT_NAME'])) === 'admin') ? '../' : '';
+        header("Location: " . $base_url . "login.php");
         exit();
     }
 }

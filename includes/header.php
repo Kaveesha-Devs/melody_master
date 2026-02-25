@@ -8,6 +8,9 @@ require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/auth.php';
 
 $cart_count = isset($_SESSION['cart']) ? array_sum(array_column($_SESSION['cart'], 'quantity')) : 0;
+
+// Determine base URL for assets/links (handles subdirectories like /admin/)
+$base_url = (basename(dirname($_SERVER['SCRIPT_NAME'])) === 'admin') ? '../' : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,35 +25,35 @@ $cart_count = isset($_SESSION['cart']) ? array_sum(array_column($_SESSION['cart'
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>css/style.css">
 </head>
 
 <body>
     <header class="main-header">
         <div class="header-container">
             <div class="logo">
-                <a href="/index.php">Melody Masters</a>
+                <a href="<?php echo $base_url; ?>index.php">Melody Masters</a>
             </div>
 
             <nav class="main-nav">
                 <ul>
-                    <li><a href="/index.php">Home</a></li>
-                    <li><a href="/shop.php">Shop</a></li>
+                    <li><a href="<?php echo $base_url; ?>index.php">Home</a></li>
+                    <li><a href="<?php echo $base_url; ?>shop.php">Shop</a></li>
                     <?php if (is_logged_in()): ?>
                         <?php if (is_admin() || is_staff()): ?>
-                            <li><a href="/admin/index.php" class="nav-highlight">Admin Panel</a></li>
+                            <li><a href="<?php echo $base_url; ?>admin/index.php" class="nav-highlight">Admin Panel</a></li>
                         <?php endif; ?>
-                        <li><a href="/dashboard.php">My Account</a></li>
-                        <li><a href="/logout.php">Logout</a></li>
+                        <li><a href="<?php echo $base_url; ?>dashboard.php">My Account</a></li>
+                        <li><a href="<?php echo $base_url; ?>logout.php">Logout</a></li>
                     <?php else: ?>
-                        <li><a href="/login.php">Login</a></li>
-                        <li><a href="/register.php">Register</a></li>
+                        <li><a href="<?php echo $base_url; ?>login.php">Login</a></li>
+                        <li><a href="<?php echo $base_url; ?>register.php">Register</a></li>
                     <?php endif; ?>
                 </ul>
             </nav>
 
             <div class="header-actions">
-                <a href="/cart.php" class="cart-btn">
+                <a href="<?php echo $base_url; ?>cart.php" class="cart-btn">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="9" cy="21" r="1"></circle>
